@@ -1,0 +1,36 @@
+/* Shared primitives: buttons and form fields. */
+.btn {
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, transform 100ms;
+}
+.btn:hover { border-color: var(--muted); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+.primary:hover { border-color: var(--accent); filter: brightness(1.08); }
+
+.danger { background: var(--danger); border-color: var(--danger); color: #fff; font-weight: 600; }
+.danger:hover { border-color: var(--danger); filter: brightness(1.08); }
+
+.field {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  transition: border-color 150ms;
+}
+.field:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+textarea.field { min-height: 120px; resize: vertical; }
+
+/* Link/button variants */
+a.btn { display: inline-flex; align-items: center; text-decoration: none; color: inherit; }
+.icon { width: 44px; height: 44px; margin: -6px 0; display: grid; place-items: center; border: 0; border-radius: 10px; background: none; color: var(--muted); cursor: pointer; transition: background 150ms, color 150ms; }
+.icon:hover { background: var(--bg); color: var(--text); }
+.del:hover { color: var(--danger); }

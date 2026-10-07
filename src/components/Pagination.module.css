@@ -1,0 +1,2 @@
+.nav { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+.info { color: var(--muted); font-size: 0.85rem; }

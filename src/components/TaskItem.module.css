@@ -1,0 +1,12 @@
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); display: flex; gap: 12px; align-items: flex-start; transition: border-color 150ms; }
+.card:hover { border-color: var(--muted); }
+.body { flex: 1; min-width: 0; }
+.title { margin: 0; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.desc { margin: 4px 0 0; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+.actions { display: flex; gap: 4px; }
+/* Collapsed: clamp to 3 lines. Open: show everything. */
+.details summary { cursor: pointer; list-style: none; }
+.details summary::-webkit-details-marker { display: none; }
+.details summary .desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.details[open] summary { display: none; }
+.details:not([open])::after { content: "Show more"; color: var(--accent); font-size: 0.85rem; pointer-events: none; }
