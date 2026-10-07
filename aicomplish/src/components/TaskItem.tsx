@@ -5,6 +5,22 @@ import styles from "./TaskItem.module.css";
 
 const LONG = 160;
 
+const stamp = new Intl.DateTimeFormat("en", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+const full = new Intl.DateTimeFormat("en", { dateStyle: "long", timeStyle: "short" });
+
+/** "Updated Oct 7, 20:43"; the tooltip also shows when the task was created. */
+function Updated({ task }: { task: Task }) {
+  return (
+    <time
+      className={styles.updated}
+      dateTime={task.updatedAt}
+      title={`Created ${full.format(new Date(task.createdAt))}\nUpdated ${full.format(new Date(task.updatedAt))}`}
+    >
+      Updated {stamp.format(new Date(task.updatedAt))}
+    </time>
+  );
+}
+
 /** A single task card (server component; "show more" uses native <details>). */
 export function TaskItem({ task }: { task: Task }) {
   const long = task.description.length > LONG || task.description.split("\n").length > 3;
@@ -23,6 +39,7 @@ export function TaskItem({ task }: { task: Task }) {
           ) : (
             <p className={styles.desc}>{task.description}</p>
           ))}
+        <Updated task={task} />
       </div>
       <div className={styles.actions}>
         <Link className={`${ui.icon} ${ui.edit}`} href={`/tasks/${task.id}/edit`} aria-label={`Edit ${task.title}`}>

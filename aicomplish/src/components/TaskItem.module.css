@@ -10,3 +10,4 @@
 .details summary .desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .details[open] summary { display: none; }
 .details:not([open])::after { content: "Show more"; color: var(--accent); font-size: 0.85rem; pointer-events: none; }
+.updated { display: block; margin-top: 8px; color: var(--muted); font-size: 0.78rem; }
