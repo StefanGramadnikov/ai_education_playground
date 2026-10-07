@@ -13,9 +13,9 @@ export function Pagination({ page, totalPages, query }: { page: number; totalPag
     return s ? `/tasks?${s}` : "/tasks";
   };
   return (
-    <nav className={styles.nav} aria-label="Pagination">
+    <nav data-cy="pagination" className={styles.nav} aria-label="Pagination">
       {page > 1 ? <Link className={ui.btn} href={href(page - 1)} rel="prev">← Newer</Link> : <span />}
-      <span className={styles.info}>Page {page} of {totalPages}</span>
+      <span className={styles.info} data-cy="page-info">Page {page} of {totalPages}</span>
       {page < totalPages ? <Link className={ui.btn} href={href(page + 1)} rel="next">Older →</Link> : <span />}
     </nav>
   );

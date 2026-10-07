@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it } from "vitest";
 import type { Database } from "better-sqlite3";
 import { openDatabase } from "@/lib/db/client";
 import { migrate } from "@/lib/db/migrations";
-import { createTask, deleteTask, getTask, listTasks, updateTask } from "./repository";
-import { taskInputSchema } from "./schema";
+import { createTask, deleteTask, getTask, listTasks, updateTask } from "@/lib/tasks/repository";
+import { taskInputSchema } from "@/lib/tasks/schema";
 
 let db: Database;
 beforeEach(() => {

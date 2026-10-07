@@ -16,7 +16,7 @@ import ui from "./ui.module.css";
 function Submit({ label }: { label: string }) {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" className={`${ui.btn} ${ui.primary}`} disabled={pending}>
+    <button type="submit" data-cy="submit" className={`${ui.btn} ${ui.primary}`} disabled={pending}>
       {pending ? "Saving…" : label}
     </button>
   );
@@ -40,6 +40,7 @@ export function TaskForm({
         <input
           className={ui.field}
           name="title"
+          data-cy="title-input"
           required
           maxLength={TITLE_MAX}
           autoFocus
@@ -51,17 +52,18 @@ export function TaskForm({
         <textarea
           className={ui.field}
           name="description"
+          data-cy="description-input"
           maxLength={DESCRIPTION_MAX}
           defaultValue={state.values.description}
         />
       </label>
       {state.error && (
-        <p className={styles.error} role="alert">
+        <p className={styles.error} role="alert" data-cy="form-error">
           {state.error}
         </p>
       )}
       <div className={styles.footer}>
-        <Link href="/tasks" className={ui.btn}>
+        <Link href="/tasks" className={ui.btn} data-cy="cancel">
           Cancel
         </Link>
         <Submit label={submitLabel} />

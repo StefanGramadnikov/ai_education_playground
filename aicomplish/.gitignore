@@ -43,3 +43,7 @@ next-env.d.ts
 
 # local SQLite database
 /data/
+
+# cypress artifacts
+/cypress/screenshots/
+/cypress/videos/
