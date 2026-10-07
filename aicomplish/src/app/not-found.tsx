@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className={page.empty}>
       <h2>Not found</h2>
       <p>
-        That task doesn’t exist. <Link href="/">Back to tasks</Link>
+        That task doesn’t exist. <Link href="/tasks">Back to tasks</Link>
       </p>
     </div>
   );

@@ -1,43 +1,46 @@
-import { getDb } from "@/lib/db/client";
-import { listTasks } from "@/lib/tasks/repository";
-import { Pagination } from "@/components/Pagination";
+import Link from "next/link";
+import { connection } from "next/server";
 import { TaskItem } from "@/components/TaskItem";
 import page from "@/components/page.module.css";
-import ui from "@/components/ui.module.css";
+import { getDb } from "@/lib/db/client";
+import { listTasks } from "@/lib/tasks/repository";
 
-type Params = { q?: string | string[]; page?: string | string[] };
-const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
-
-/** Task list. Fully server-rendered; search is a GET form and paging is plain links. */
-export default async function Home({ searchParams }: { searchParams: Promise<Params> }) {
-  const sp = await searchParams;
-  const query = first(sp.q).trim();
-  const result = listTasks(getDb(), { query, page: Number(first(sp.page)) || 1 });
+/** Home ("Today"): date, task summary and the latest tasks. Always rendered per request. */
+export default async function TodayPage() {
+  await connection(); // reads the DB, so never prerender at build time
+  const { tasks, total } = listTasks(getDb(), { pageSize: 5 });
+  const today = new Date().toLocaleDateString("en", { weekday: "long", month: "long", day: "numeric" });
 
   return (
     <>
-      <form className={page.search} role="search" action="/">
-        <input className={ui.field} type="search" name="q" placeholder="Search tasks…" aria-label="Search tasks" defaultValue={query} />
-        <button className={ui.btn}>Search</button>
-      </form>
-      <p className={page.meta}>
-        {result.total} {result.total === 1 ? "task" : "tasks"}
-        {query && ` matching “${query}”`}
-      </p>
+      <section className={page.hero}>
+        <p className={page.eyebrow}>{today}</p>
+        <h2 className={page.title}>Today</h2>
+        <p className={page.meta}>
+          {total === 0 ? "You have no tasks yet." : `You have ${total} ${total === 1 ? "task" : "tasks"}.`}
+        </p>
+      </section>
 
-      {result.tasks.length === 0 ? (
-        <div className={page.empty}>
-          <h2>{query ? "No matching tasks" : "Nothing here yet"}</h2>
-          <p>{query ? "Try a different search." : "Create your first task to get started."}</p>
-        </div>
+      {tasks.length > 0 ? (
+        <>
+          <div className={page.sectionHead}>
+            <h3>Latest tasks</h3>
+            <Link href="/tasks">View all →</Link>
+          </div>
+          <ul className={page.list}>
+            {tasks.map((t) => (
+              <TaskItem key={t.id} task={t} />
+            ))}
+          </ul>
+        </>
       ) : (
-        <ul className={page.list}>
-          {result.tasks.map((t) => (
-            <TaskItem key={t.id} task={t} />
-          ))}
-        </ul>
+        <div className={page.empty}>
+          <h2>Nothing here yet</h2>
+          <p>
+            <Link href="/tasks/new">Create your first task</Link> to get started.
+          </p>
+        </div>
       )}
-      <Pagination page={result.page} totalPages={result.totalPages} query={query} />
     </>
   );
 }

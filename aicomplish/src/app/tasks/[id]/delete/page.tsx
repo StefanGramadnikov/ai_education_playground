@@ -20,7 +20,7 @@ export default async function DeleteTaskPage({ params }: { params: Promise<{ id:
       <h2>Delete task?</h2>
       <p style={{ overflowWrap: "anywhere" }}>“{task.title}” will be permanently removed.</p>
       <form action={deleteTaskAction.bind(null, task.id)} className={page.footer}>
-        <Link href="/" className={ui.btn}>
+        <Link href="/tasks" className={ui.btn}>
           Cancel
         </Link>
         <button className={`${ui.btn} ${ui.danger}`}>Delete</button>

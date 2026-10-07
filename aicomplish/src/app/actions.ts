@@ -40,8 +40,9 @@ export async function createTaskAction(_prev: FormState, formData: FormData): Pr
   } catch {
     return { error: "Could not save the task. Please try again.", values };
   }
+  revalidatePath("/tasks");
   revalidatePath("/");
-  redirect("/");
+  redirect("/tasks");
 }
 
 export async function updateTaskAction(
@@ -59,12 +60,14 @@ export async function updateTaskAction(
   } catch {
     return { error: "Could not save the task. Please try again.", values };
   }
+  revalidatePath("/tasks");
   revalidatePath("/");
-  redirect("/");
+  redirect("/tasks");
 }
 
 export async function deleteTaskAction(id: number): Promise<void> {
   repo.deleteTask(getDb(), id);
+  revalidatePath("/tasks");
   revalidatePath("/");
-  redirect("/");
+  redirect("/tasks");
 }

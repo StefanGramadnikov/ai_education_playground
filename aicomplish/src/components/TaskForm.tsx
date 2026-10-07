@@ -61,7 +61,7 @@ export function TaskForm({
         </p>
       )}
       <div className={styles.footer}>
-        <Link href="/" className={ui.btn}>
+        <Link href="/tasks" className={ui.btn}>
           Cancel
         </Link>
         <Submit label={submitLabel} />

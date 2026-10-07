@@ -10,7 +10,7 @@ export function Pagination({ page, totalPages, query }: { page: number; totalPag
     if (query) qs.set("q", query);
     if (p > 1) qs.set("page", String(p));
     const s = qs.toString();
-    return s ? `/?${s}` : "/";
+    return s ? `/tasks?${s}` : "/tasks";
   };
   return (
     <nav className={styles.nav} aria-label="Pagination">
